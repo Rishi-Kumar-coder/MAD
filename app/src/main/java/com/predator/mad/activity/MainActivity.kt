@@ -1,20 +1,17 @@
 package com.predator.mad.activity
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth
-import com.predator.mad.ChatsFragment
+import com.predator.mad.fragment.ChatsFragment
 import com.predator.mad.fragment.HomeFragment
-import com.predator.mad.NotificationFragment
-import com.predator.mad.ProfileFragment
+import com.predator.mad.fragment.NotificationFragment
+import com.predator.mad.fragment.ProfileFragment
 import com.predator.mad.R
 
 class MainActivity : AppCompatActivity() {
@@ -35,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         loadFragment(HomeFragment())
         btm.setOnItemSelectedListener {
             when(it.itemId){
-                R.id.homeFragment2->{
+                R.id.homeFragment->{
                     loadFragment(HomeFragment())
                     true
 
@@ -48,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                     loadFragment(ChatsFragment())
                     true
                 }
-                R.id.profileFragment->{
+                R.id.studentsFragment->{
                     loadFragment(ProfileFragment())
                     true
                 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/notification_background"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/noti_tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="29-05-2024"
+        android:textColor="@color/grey_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/noti_tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Event"
+        android:textColor="@color/textcolor_dark"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/noti_tv_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/noti_tv_date" />
+
+    <TextView
+        android:id="@+id/noti_tv_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="A Very Good Day"
+        app:layout_constraintEnd_toEndOf="@+id/noti_tv_date"
+        app:layout_constraintStart_toStartOf="@+id/noti_tv_title"
+        app:layout_constraintTop_toBottomOf="@+id/noti_tv_title" />
+</androidx.constraintlayout.widget.ConstraintLayout>

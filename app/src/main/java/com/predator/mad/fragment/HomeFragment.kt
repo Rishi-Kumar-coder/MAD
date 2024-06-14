@@ -19,6 +19,7 @@ import com.predator.mad.Utils
 import com.predator.mad.activity.AuthActivity
 import com.predator.mad.databinding.FragmentHomeBinding
 import com.predator.mad.models.HomeWork
+import com.predator.mad.models.Notification
 import com.predator.mad.viewmodel.MainViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update

@@ -71,6 +71,18 @@ object Utils {
         return current.format(formatter)
     }
 
+    fun getCurrentMonth(): String {
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("MMMM")  // Change format as needed
+        return current.format(formatter)
+    }
+
+    fun getCurrentYear(): String {
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("YY")  // Change format as needed
+        return current.format(formatter)
+    }
+
     fun setListAdapter(context: Context,list:List<String>,view:AutoCompleteTextView){
         val adapter
                 = ArrayAdapter(context,
@@ -159,8 +171,6 @@ object Utils {
         return user
     }
 
-    fun datePicker(context: Context,view:Button){
 
-    }
 
 }

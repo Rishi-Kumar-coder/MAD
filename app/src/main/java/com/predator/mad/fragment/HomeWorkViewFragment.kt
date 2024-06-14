@@ -1,12 +1,10 @@
 package com.predator.mad.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.predator.mad.R
 import com.predator.mad.adapter.ViewPagerOnlineAdapter
@@ -25,7 +23,7 @@ class HomeWorkViewFragment : Fragment() {
     ): View? {
         binding = FragmentHomeWorkViewBinding.inflate(inflater)
 
-        val title = arguments?.getString("title")
+
         val homeWork = arguments?.getParcelable<HomeWork>("homeWork")
 
         if (homeWork != null) {

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.predator.mad.R
 import com.predator.mad.databinding.ViewHomeworkBinding
 import com.predator.mad.models.HomeWork
+import com.predator.mad.models.Notification
 
 import com.squareup.picasso.Picasso
 

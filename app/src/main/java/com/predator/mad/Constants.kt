@@ -2,6 +2,7 @@ package com.predator.mad
 
 object Constants {
 
+    val Attendence = "attendence"
     val CollectionAdminUser = "adminUser"
     val CollectionStudents = "student"
     val CollectionHomeWork = "Homework"

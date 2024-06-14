@@ -12,17 +12,17 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/notificationFragment2"
-        android:name="com.predator.mad.NotificationFragment"
+        android:name="com.predator.mad.fragment.NotificationFragment"
         android:label="fragment_notification"
         tools:layout="@layout/fragment_notification" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.predator.mad.ProfileFragment"
+        android:name="com.predator.mad.fragment.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/chatsFragment2"
-        android:name="com.predator.mad.ChatsFragment"
+        android:name="com.predator.mad.fragment.ChatsFragment"
         android:label="fragment_chats"
         tools:layout="@layout/fragment_chats" />
     <fragment
