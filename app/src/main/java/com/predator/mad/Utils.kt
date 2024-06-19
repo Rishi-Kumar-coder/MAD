@@ -145,6 +145,10 @@ object Utils {
 
     }
 
+    fun generateUniqueTimeBasedId(): String {
+        val currentTime = System.currentTimeMillis()
+        return "$currentTime"
+    }
     fun clearStudent(context: Context){
         val sharedPreferences = context.getSharedPreferences("student", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()

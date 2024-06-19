@@ -1,5 +1,7 @@
 package com.predator.mad.models
 
+import com.google.firebase.firestore.FieldValue
+
 data class Messege(
 
     val sender_uid:String ?= null,
@@ -10,6 +12,7 @@ data class Messege(
     val time:String ?= null,
     var date:String ?= null,
     val section:String ?= null,
+    var timeStamp:String ?= null,
 
 
     ){}

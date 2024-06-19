@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.toObject
 import com.predator.mad.Constants
 import com.predator.mad.R
@@ -89,12 +91,17 @@ class ChatViewFragment : Fragment() {
 
         val layoutManager = LinearLayoutManager(context)
 
-
+        layoutManager.reverseLayout
         binding.rvChat.layoutManager = layoutManager
 
         binding.rvChat.adapter = adapter
 
-        FirebaseFirestore.getInstance().collection(Constants.CollectionMessege).document(sender_uid+recipient_uid).collection(Constants.CollectionMessege).get().addOnSuccessListener {
+        FirebaseFirestore.getInstance()
+            .collection(Constants.CollectionMessege)
+            .document(sender_uid+recipient_uid)
+            .collection(Constants.CollectionMessege)
+            .orderBy("timeStamp", Query.Direction.ASCENDING)
+            .get().addOnSuccessListener {
 
             for (doc in it){
                 val messege = doc.toObject<Messege>()
@@ -123,7 +130,7 @@ class ChatViewFragment : Fragment() {
                 .document(recipient_uid).collection(Constants.CollectionMessege)
                 .document(sender_uid).set(ChatUser)
 
-
+            messege.timeStamp = Utils.generateUniqueTimeBasedId()
             viewModel.getFireStoreInstance().collection(Constants.CollectionMessege).document(sender_uid+recipient_uid).collection(Constants.CollectionMessege).document().set(messege).addOnSuccessListener{
                 Utils.showToast(context,"Messege Sent")
                 MessegesData.add(messege)
