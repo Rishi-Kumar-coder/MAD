@@ -30,4 +30,9 @@
         android:name="com.predator.mad.fragment.HomeWorkViewFragment"
         android:label="fragment_home_work_view"
         tools:layout="@layout/fragment_home_work_view" />
+    <fragment
+        android:id="@+id/chatViewFragment"
+        android:name="com.predator.mad.fragment.ChatViewFragment"
+        android:label="fragment_chat_view"
+        tools:layout="@layout/fragment_chat_view" />
 </navigation>

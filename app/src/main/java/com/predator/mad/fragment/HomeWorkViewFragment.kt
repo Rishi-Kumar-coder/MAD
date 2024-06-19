@@ -16,7 +16,7 @@ import com.predator.mad.viewmodel.MainViewModel
 class HomeWorkViewFragment : Fragment() {
     lateinit var binding: FragmentHomeWorkViewBinding
     private val mainViewModal: MainViewModel by viewModels()
-
+    lateinit var homeWork:HomeWork
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,7 +24,7 @@ class HomeWorkViewFragment : Fragment() {
         binding = FragmentHomeWorkViewBinding.inflate(inflater)
 
 
-        val homeWork = arguments?.getParcelable<HomeWork>("homeWork")
+        homeWork = arguments?.getParcelable<HomeWork>("homeWork")!!
 
         if (homeWork != null) {
             binding.tvHwSubject.text = homeWork.subject
@@ -45,6 +45,10 @@ class HomeWorkViewFragment : Fragment() {
             loadFragment(HomeFragment())
 //            removeFragment(this)
 //            backToPreviousFragment()
+        }
+
+        binding.btnDoubt.setOnClickListener{
+            loadChatFragmentWithBundle()
         }
 
 
@@ -69,6 +73,21 @@ class HomeWorkViewFragment : Fragment() {
     private fun loadFragment(fragment: Fragment) {
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container, fragment)
+        transaction.commit()
+    }
+
+    private fun loadChatFragmentWithBundle(){
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+
+        val ChatsFragment = ChatViewFragment()
+        val args = Bundle()
+        args.putString("auther", homeWork.auther.toString())
+        args.putParcelable("hw", homeWork)
+
+
+
+        ChatsFragment.arguments = args
+        transaction.replace(R.id.container, ChatsFragment)
         transaction.commit()
     }
 

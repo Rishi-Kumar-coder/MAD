@@ -61,10 +61,10 @@ class HomeFragment : Fragment() {
 
         setHomeWork(Utils.getCurrentDate())
 
-        binding.btnSettingHome.setOnClickListener{
-            FirebaseAuth.getInstance().signOut()
-            startActivity(Intent(requireContext(),AuthActivity::class.java))
-        }
+//        binding.btnSettingHome.setOnClickListener{
+//            FirebaseAuth.getInstance().signOut()
+//            startActivity(Intent(requireContext(),AuthActivity::class.java))
+//        }
 
         binding.btnHomeDate.setOnClickListener{
             val calendar = Calendar.getInstance()
@@ -98,6 +98,7 @@ class HomeFragment : Fragment() {
                     binding.btnHomeDate.setText(selectedDate)
 
                     _date.update { selectedDate }
+                    Log.d("rishi",_date.value)
                     setHomeWork(_date.value)
 
 

@@ -145,6 +145,20 @@ object Utils {
 
     }
 
+    fun clearStudent(context: Context){
+        val sharedPreferences = context.getSharedPreferences("student", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("name","")
+        editor.putString("email","")
+        editor.putString("phone","")
+        editor.putString("uid","")
+        editor.putString("section","")
+        editor.putString("standard","")
+        editor.apply()
+
+
+    }
+
     fun getUser(context: Context) : Users{
         val sharedPreferences = context.getSharedPreferences("user",Context.MODE_PRIVATE)
 

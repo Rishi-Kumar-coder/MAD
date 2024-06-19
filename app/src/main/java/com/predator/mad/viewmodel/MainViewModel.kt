@@ -10,13 +10,17 @@ import com.predator.mad.models.Notification
 
 
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 import com.predator.mad.Constants
 import com.predator.mad.Utils
 import com.predator.mad.modal.Attendence
+import com.predator.mad.models.ChatUser
 import com.predator.mad.models.HomeWork
+import com.predator.mad.models.Messege
+import com.predator.mad.models.Users
 
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -32,6 +36,10 @@ class MainViewModel : ViewModel() {
     val _imageUploded = MutableStateFlow<Boolean>(false)
     val _homeWorkUploded = MutableStateFlow<Boolean>(false)
     val _NotificationUploded = MutableStateFlow<Boolean>(false)
+    val _AdminName = MutableStateFlow<String>("")
+    val AdminName = _AdminName.value
+
+    val _Messeges = MutableStateFlow<ArrayList<Messege>>(ArrayList())
 
     var _homeWork: HomeWork = HomeWork()
 
@@ -151,6 +159,46 @@ class MainViewModel : ViewModel() {
 
 
     }
+
+    fun fetchUser(uid: String) {
+        FirebaseFirestore.getInstance().collection(Constants.CollectionAdminUser).document(uid).get().addOnSuccessListener {
+            val user = it.toObject<Users>()
+            _AdminName.value = user!!.name.toString()
+
+        }
+    }
+
+    fun fetchMesseges(uid: String){
+        getFireStoreInstance().collection(Constants.CollectionMessege).document(uid).get().addOnSuccessListener {
+            val messeges = it.toObject<ArrayList<Messege>>()
+            _Messeges.value = messeges!!
+        }
+    }
+
+
+    @SuppressLint("SuspiciousIndentation")
+    fun fetchChatList(uid:String): Flow<ArrayList<ChatUser>> = callbackFlow {
+        val id = FirebaseAuth.getInstance().currentUser!!.uid.toString()
+
+        val db =getFireStoreInstance().collection(Constants.CollectionStudents).document(id).collection(Constants.CollectionMessege)
+
+
+
+        db.get().addOnSuccessListener{
+            var dataList = ArrayList<ChatUser>()
+            dataList = it.toObjects(ChatUser::class.java) as ArrayList<ChatUser>
+            trySend(dataList)
+        }
+
+
+        awaitClose()
+
+
+    }
+
+
+
+
 
 
 }
