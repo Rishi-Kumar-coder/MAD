@@ -7,11 +7,12 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.predator.mad.models.Notification
-
+import com.predator.mad.modal.Result
 
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 import com.predator.mad.Constants
@@ -114,6 +115,7 @@ class MainViewModel : ViewModel() {
                         dataList.add(hw)
 
                     }
+                    dataList.reverse()
 
                     trySend(dataList)
 
@@ -160,12 +162,14 @@ class MainViewModel : ViewModel() {
 
     }
 
-    fun fetchUser(uid: String) {
+    fun fetchUser(uid: String):Flow<Users> = callbackFlow {
         FirebaseFirestore.getInstance().collection(Constants.CollectionAdminUser).document(uid).get().addOnSuccessListener {
             val user = it.toObject<Users>()
             _AdminName.value = user!!.name.toString()
+            trySend(user)
 
         }
+        awaitClose()
     }
 
     fun fetchMesseges(uid: String){
@@ -194,6 +198,45 @@ class MainViewModel : ViewModel() {
         awaitClose()
 
 
+    }
+
+    fun fetchStudentResult(uid: String):Flow<ArrayList<Result>> = callbackFlow {
+        val db = Firebase.firestore.collection(Constants.CollectionResult).document(uid).collection(Constants.CollectionResult)
+
+
+        db.get()
+
+            .addOnSuccessListener { result ->
+                val dataList = ArrayList<Result>()
+                for (documents   in result) {
+                    val hw = documents.toObject<Result>()
+
+                    dataList.add(hw)
+
+                }
+
+                trySend(dataList)
+
+            }.addOnFailureListener { exception ->
+                // Handle data fetching failure
+                Log.w("Firestore", "Error fetching data", exception)
+            }
+        awaitClose()
+
+
+
+
+    }
+
+    fun updateUser(context:Context,student: Users){
+        Utils.showProgress(context = context,"Updating Student...")
+        getFireStoreInstance().collection(Constants.CollectionStudents).document(student.uid.toString()).set(student).addOnSuccessListener{
+            Utils.hideProgressDialog()
+            Utils.showToast(context,"Student Updated")
+            Utils.putStudent(context,student)
+
+
+        }
     }
 
 

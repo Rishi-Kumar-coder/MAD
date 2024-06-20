@@ -5,6 +5,7 @@
     android:id="@+id/cv_att"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_margin="5dp"
     android:padding="10dp"
     app:cardBackgroundColor="#03C800"
     app:cardCornerRadius="8dp">
@@ -31,6 +32,7 @@
             android:layout_marginTop="10dp"
             android:text="June"
             android:textColor="#FFFFFF"
+            android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_date_att" />

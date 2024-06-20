@@ -35,4 +35,9 @@
         android:name="com.predator.mad.fragment.ChatViewFragment"
         android:label="fragment_chat_view"
         tools:layout="@layout/fragment_chat_view" />
+    <fragment
+        android:id="@+id/resultsFragment"
+        android:name="com.predator.mad.fragment.ResultsFragment"
+        android:label="fragment_results"
+        tools:layout="@layout/fragment_results" />
 </navigation>

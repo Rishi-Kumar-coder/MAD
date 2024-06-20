@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.predator.mad.R
 import com.predator.mad.adapter.ViewPagerOnlineAdapter
 import com.predator.mad.databinding.FragmentHomeWorkViewBinding
 import com.predator.mad.models.HomeWork
 import com.predator.mad.viewmodel.MainViewModel
+import kotlinx.coroutines.launch
 
 
 class HomeWorkViewFragment : Fragment() {
@@ -26,12 +28,21 @@ class HomeWorkViewFragment : Fragment() {
 
         homeWork = arguments?.getParcelable<HomeWork>("homeWork")!!
 
+        mainViewModal.apply {
+            lifecycleScope.launch {
+                fetchUser(homeWork.auther!!).collect{
+                    binding.tvHwAuther.setText("${it.name} ${it.standard}${it.section}")
+                }
+            }
+        }
+
+
         if (homeWork != null) {
             binding.tvHwSubject.text = homeWork.subject
             binding.tvHwTitle.text = homeWork.title
             binding.tvHwDesc.text = homeWork.desc
             binding.tvHwDate.text = homeWork.date
-            binding.tvHwAuther.text = "by:${homeWork.auther}"
+
             if (homeWork.urls!=null){
             binding.vpHomeworkViewpager.adapter =
                 ViewPagerOnlineAdapter(requireContext(), homeWork.urls!!)
@@ -41,11 +52,7 @@ class HomeWorkViewFragment : Fragment() {
             }
         }
 
-        binding.btnHwBack.setOnClickListener {
-            loadFragment(HomeFragment())
-//            removeFragment(this)
-//            backToPreviousFragment()
-        }
+
 
         binding.btnDoubt.setOnClickListener{
             loadChatFragmentWithBundle()
@@ -56,23 +63,11 @@ class HomeWorkViewFragment : Fragment() {
 
         return binding.root
     }
-    fun backToPreviousFragment() {
-        if ((fragmentManager?.backStackEntryCount ?: 0) > 0) {
-            requireFragmentManager().popBackStack()
-        } else {
-            // Handle no previous fragment (e.g., show a toast)
-        }
-    }
-    fun removeFragment(fragment: Fragment) {
-        val fragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-        fragmentTransaction.remove(fragment)
 
-        fragmentTransaction.commit()
-    }
 
     private fun loadFragment(fragment: Fragment) {
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, fragment)
+        transaction.replace(R.id.container, fragment).addToBackStack("")
         transaction.commit()
     }
 
@@ -83,11 +78,8 @@ class HomeWorkViewFragment : Fragment() {
         val args = Bundle()
         args.putString("auther", homeWork.auther.toString())
         args.putParcelable("hw", homeWork)
-
-
-
         ChatsFragment.arguments = args
-        transaction.replace(R.id.container, ChatsFragment)
+        transaction.replace(R.id.container, ChatsFragment).addToBackStack("")
         transaction.commit()
     }
 
